@@ -1,0 +1,104 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+a {
+    color: #020202;
+    font-size:15px;
+}
+.popUp1 {
+    list-style:none;
+    padding-left:10px;
+    position: absolute;
+    border-radius:5px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+    .popUp1 li {
+        padding: 12px 20px 12px 12px;
+        margin: 5px 5px 0 0;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    .popUp1 li:hover {
+        background-color: #c9a442;
+        transition: 0.35s all ease;
+        color:white;
+    }
+
+
+.navbar-item-button{
+    border:none;
+    background-color:transparent;
+}
+.main-content {
+    border-radius: 6px;
+    box-shadow: 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+}
+#search-icon {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    padding: 9px 0;
+    font-size: 22px;
+}
+#search-btn {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 9px;
+}
+
+.search-input {
+    border: none;
+    background-image: linear-gradient(to top, #d2d2d2 1px, rgba(210,210,210,0) 1px);
+
+}
+    
+.search-card {
+    border-radius: 6px;
+    box-shadow: 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+}
+#search-footer{
+    list-style:none;
+    
+}
+#search-footer a {
+    text-decoration: none;
+    color: #c9a442!important;
+}
+#main-contentPost {
+    margin: 10px;
+    padding-top: 60px;
+    margin-bottom: -60px;
+}
+.card-header-bubisanat {
+    background-color: #c9a442 !important;
+    position: absolute;
+    width: 98%;
+    left: 8px;
+    top: -30px;
+    box-shadow: 0 5px 20px 0px rgb(201 164 66 / 20%), 0 13px 24px -11px rgb(201 164 66 / 60%);
+    background: linear-gradient(60deg, #c9a442, #b38b21);
+}

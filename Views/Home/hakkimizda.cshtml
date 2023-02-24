@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+@using Bubisanat.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext _context;
+@{
+
+    List<TopCategory> topCategories = _context.TopCategories.Include(t => t.Categories).ToList();
+    List<Category> categories = _context.Categories.Where(c => c.TopCategoryId == null).ToList();
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Bubisanat</title>
+    <link href="~/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Bubisanat.styles.css" asp-append-version="true" />
+    
+</head>
+<body>
+    <header style="position:fixed; width: 100%; z-index:2">
+        <nav b-4d660ycjr0="" style="background-color: #c9a442!important; " class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
+            <div b-4d660ycjr0="" style="margin: 10px 30px 10px;" class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img b-4d660ycjr0="" style="height:35px" src="https://bubisanat.s3.eu-central-1.amazonaws.com/bubisanat_logo.png" alt="">
+                </a>
+            </div>
+        </nav>
+    </header>
+    <div style="padding-top:150px;">
+        <div class="d-flex container flex-column pt-1 justify-content-center align-items-center my-3">
+           <h1 class="header">BuBi’ Sanat nedir? </h1>
+           <h1 class="header">BuBi’ Sanat nedir? </h1>
+           <h1 class="header">BuBi’ Sanat nedir? </h1>
+           <h1 class="header">BuBi’ Sanat nedir? </h1>
+        </div>
+    </div>
+    
+</body>
+</html>

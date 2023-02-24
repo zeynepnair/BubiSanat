@@ -1,0 +1,138 @@
+﻿@using Bubisanat.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext _context;
+@{
+    
+    List<TopCategory> topCategories = _context.TopCategories.Include(t=>t.Categories).ToList();
+    List<Category> categories = _context.Categories.Where(c => c.TopCategoryId==null).ToList();
+}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Bubisanat</title>
+    <link href="~/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Bubisanat.styles.css" asp-append-version="true" />
+    <script>
+        function popUp(ID) {
+            var toggle= ID+ "-list";
+  
+            var y = document.getElementById(toggle);
+            if (y.style.display != "none") {
+                y.style.display = "none";
+            } else {
+                $(".popUp1").css("display", "none");
+                y.style.display = "block";
+            }
+
+            $("*").click(function (event) {
+                if (!$(event.target).is(".box")) {
+
+                    return y.style.display = "none";
+                }
+            });
+            
+        }
+        
+    </script>
+</head>
+<body>
+    <header style="position:fixed; width: 100%; z-index:2">
+        <nav style="background-color: #c9a442!important; " class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
+            <div style="margin: 10px 30px 10px;" class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img style="height:35px" src="https://bubisanat.s3.eu-central-1.amazonaws.com/bubisanat_logo.png" alt="" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center" >
+                        @foreach(var topCategory in topCategories){
+                            <li class="nav-item" style="display:relative">
+                                <a class="nav-link text-dark box" id="topCat-@topCategory.Id.ToString()" onclick="popUp(this.id)">@topCategory.Name.Trim()</a>
+                                <ul class="popUp1 position-absolute" id="topCat-@topCategory.Id.ToString()-list" style="display:none">
+                                    @foreach (var category in topCategory.Categories)
+                                    {
+                                        <li> <a asp-controller="Categories" asp-route-id="@category.Id" asp-action="Details">@category.Name.Trim()</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        @foreach (var item in categories)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" >@item.Name</a>
+                            </li>
+                        }
+
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+        <div class="row w-100">
+            <div class="col-md-3"></div>
+        <div class="col-md-6" style="margin-top: 100px; margin-bottom:10px">
+                <main role="main" class="pb-3 main-content">
+                    @RenderBody()
+                </main>
+            </div>
+        <div class="col-md-3 col-md-3 search-section d-none d-md-block" style=" width: 23%;">
+            <div class="card search-card main" style="position: fixed; margin-top:120px;
+                 width: 20%; ">
+                <div class="card-body" style="padding:15px; padding-bottom:30px;">
+                    <form style="position:relative" class="simple_form global-search-form" id="right-panel-search-form" novalidate="novalidate" action="/home/arama" accept-charset="UTF-8" method="get">
+                        <div style="padding-top: 5px;" class="form-group hidden search_type"><input class="form-control hidden hidden" name="type" id="right-panel-type-q" autocomplete="off" type="hidden"></div>
+                        <div style="padding-left:30px; padding-top: 3px;" class="search-input form-group string required search_q bmd-form-group">
+                            <input class="form-control string required search-input" name="q" id="right-panel-search-q" placeholder="BubiSanat'ta ara" type="text">
+                         </div>
+                        <i id="search-icon" class="fa fa-search"></i>
+                        <input style="background-color: #c9a442!important;border:none;" id="search-btn" type="submit" value="Ara" class="btn btn-primary" data-disable-with="Ara">
+                    </form>
+                </div>
+                <div class="card-footer" style="background-color: white;">
+                    <div class="card-footer right-section-footer" style="background-color:transparent; border-top:none;">
+                        <nav>
+                            <ul id="search-footer" class="right-section-footer-links" style="padding-left: 0; ">
+                                <li>
+                                    <a asp-action="hakkimizda">Hakkımızda</a>
+                                   
+                                </li>
+                                <li>
+                                    <a href="/yardim">
+                                        Yardım
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/kullanici-sozlesmesi">
+                                        Kullanıcı Sözleşmesi
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+                 
+             </div>
+        </div>
+  
+    <footer class="border-top footer text-muted" style="">
+        <div class="container">
+            &copy; 2022 - Bubisanat - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

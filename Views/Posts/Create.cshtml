@@ -1,0 +1,90 @@
+﻿@model Bubisanat.Models.Post
+
+@{
+    ViewData["Title"] = "Create";
+}
+<script>
+    function selectPThis(obj) {
+        var selectelems = document.getElementById('NextPostId')
+        for (var i = 0; i < selectelems.length; i++) {
+            selectelems.options[i].disabled = false;
+        }
+        for (var i = 0; i < selectelems.length; i++) {
+            if (selectelems[i].value == obj.value) {
+                selectelems.options[i].disabled = true;
+            }
+        }
+    }
+    function selectNThis(obj) {
+        var selectelems = document.getElementById('PreviousPostId')
+        for (var i = 0; i < selectelems.length; i++) {
+            selectelems.options[i].disabled = false;
+        }
+        for (var i = 0; i < selectelems.length; i++) {
+            if (selectelems[i].value == obj.value) {
+                selectelems.options[i].disabled = true;
+            }
+        }
+    }
+</script>
+
+
+<h1>Create</h1>
+
+<h4>Post</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="AuthorId" type="hidden" value="@ViewData["authorId"]"/>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CatagoryId" class="control-label"></label>
+                <select asp-for="CatagoryId" class ="form-control" asp-items="ViewBag.CatagoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tags" class="control-label"></label>
+                <input asp-for="Tags" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviousPostId" class="control-label"></label>
+                <select asp-for="PreviousPostId" class="form-control" onchange="selectPThis(this)"  asp-items="ViewBag.PreviousPostId">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NextPostId" class="control-label"></label>
+                <select asp-for="NextPostId" class="form-control" onchange="selectNThis(this)" asp-items="ViewBag.NextPostId">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FormImage" class="control-label"></label>
+                <input asp-for="FormImage"  class="form-control">
+                <span asp-validation-for="FormImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

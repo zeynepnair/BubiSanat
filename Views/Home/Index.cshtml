@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Bubisanat.Models.Post>
+@{
+    ViewData["Title"] = "Index";
+    string timeSpan;
+    string content;
+
+}<script>
+    function UpdateLike(postId) {
+        var postlike = document.getElementById("likeCount-"+postId)
+        $.get("@Url.Action("Likes","Posts")?id="+postId ,function (postss)
+        {
+            $(postlike).html(postss);
+        });
+    }
+</script>
+
+@foreach (var item in Model) {
+    
+    timeSpan = (DateTime.Now - item.CreatedAt).TotalHours.ToString("F0");
+    if(item.Content.Length<150){
+        content = item.Content;
+    }
+    else{
+        content = item.Content.Substring(0, 150) + "...";
+    }
+    <div id="main-contentPost">
+        <div class="card card-nav-tabs" style="margin-bottom:50px;  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);">
+            <div class="card-header card-header-bubisanat " style="background-color:#c9a442!important">
+
+                <a style="text-decoration: none;" asp-controller="Posts" asp-route-id="@item.Id" asp-action="Details">
+                    <div class="postTitle" style="color:white">
+                    <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                    <p>@timeSpan saat önce</p>
+                    <p>Yazar:@item.Author.UserName Kategori: @item.Category.Name</p>
+                    </div>
+               </a>
+                
+            </div>
+            <div class="card-body">
+                <p style="padding-top: 120px;">@content</p>
+            </div>
+            <div class="card-footer">
+                <div style="display:flex;" class="footerItem">
+                    <p onclick="UpdateLike('@item.Id.ToString()')"> <i class="fa fa-heart"> </i> <span id="likeCount-@item.Id.ToString()">@item.Likes</span></p>
+                    <p style ="padding-left:7px"> <i class="fa fa-comment"> </i> 0 </p>
+                    <p style="padding-left:7px"> <i class="fa fa-eye"></i>
+                        <span>@item.DisplayCount.ToString()</span>
+                    </p>
+                </div>
+                <div><p>@item.Tags</p></div>
+            </div>
+        </div>
+    </div>
+    
+}
